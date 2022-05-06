@@ -26,6 +26,7 @@ class Login extends ResourceController
             try {
                 $payload =  JWT::decode($token, new Key($key, 'HS256'));
                 $data['payload'] = $payload;
+                // the payload is std class
                 $data['user'] = $this->userModel->find($payload->uid);
                 return $this->respond($data);
             } catch (\Throwable $th) {
@@ -46,6 +47,7 @@ class Login extends ResourceController
                     "nbf" => strtotime('now'),
                     "exp" => strtotime(date("Y-m-d") . ' 24:00:00'),
                     "jti" => 'login',
+                    // If u can't use a array use a std class
                     "uid" => $user['id'],
                 );
                 $data['message'] = 'Login successfully';

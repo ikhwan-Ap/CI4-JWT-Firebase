@@ -26,7 +26,7 @@ class UserModel extends Model
 
     protected function beforeInsert(array $data)
     {
-        if (isset($data['data']) && (!empty($data['data']))) {
+        if (isset($data['data']) && (!empty($data['password']))) {
             $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_BCRYPT);
         }
         return $data;
@@ -34,8 +34,8 @@ class UserModel extends Model
 
     protected function beforeUpdate(array $data)
     {
-        if (isset($data['data']) && (!empty($data['data']))) {
-            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_BCRYPT);
+        if (isset($data['password']) && (!empty($data['password']))) {
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         }
         return $data;
     }

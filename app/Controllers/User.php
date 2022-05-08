@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
 
 class User extends ResourceController
 {
+    use ResponseTrait;
+    protected $user;
 
     public function __construct()
     {
@@ -25,7 +28,7 @@ class User extends ResourceController
         }
         return $this->fail($this->user->errors());
     }
-
+    // Simple Update 
     public function update($id = null)
     {
         if ($this->user->find($id)) {
@@ -38,6 +41,33 @@ class User extends ResourceController
             return $this->failNotFound('No Data Found with id ' . $id);
         }
     }
+
+    // Flexible Where any update
+    // public function update($id = null)
+    // {
+    //     $valid = [
+    //         'username' => 'required|is_unique[user.username,user.id{id}]',
+    //         'nama' => 'required|min_lengt[5]|',
+    //         'alamat' => 'required|min_lengt[5]|',
+    //         'password' => 'required|min_lengt[5]|',
+    //     ];
+    //     if ($this->user->find($id)) {
+    //         if (!$this->validate($valid)) {
+    //             return $this->fail($this->validator->getErrors());
+    //         } else {
+    //             $data = [
+    //                 'username' => $this->request->getRawInput('username'),
+    //                 'nama' => $this->request->getRawInput('nama'),
+    //                 'alamat' => $this->request->getRawInput('alamat'),
+    //                 'password' => $this->request->getRawInput('password'),
+    //             ];
+    //             $this->user->update($id, $data);
+    //             return $this->respond(['message' => "Updated Successfully"]);
+    //         }
+    //     } else {
+    //         return $this->failNotFound('No Data Found With Id' . $id);
+    //     }
+    // }
 
     public function delete($id = null)
     {

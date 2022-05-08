@@ -37,9 +37,8 @@ class User extends ResourceController
             } else {
                 return $this->fail($this->user->errors());
             }
-        } else {
-            return $this->failNotFound('No Data Found with id ' . $id);
         }
+        return $this->failNotFound('No Data Found with id ' . $id);
     }
 
     // Flexible Where any update
@@ -77,17 +76,15 @@ class User extends ResourceController
             } else {
                 return $this->fail('Failed to deleted', 422);
             }
-        } else {
-            return $this->failNotFound('No Data Found with id ' . $id);
         }
+        return $this->failNotFound('No Data Found with id ' . $id);
     }
 
     public function show($id = null)
     {
         if ($this->user->find($id)) {
             return $this->respond($this->user->find($id));
-        } else {
-            return $this->failNotFound('No Data Found with id ' . $id);
         }
+        return $this->failNotFound('No Data Found with id ' . $id);
     }
 }
